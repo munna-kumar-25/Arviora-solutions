@@ -35,7 +35,7 @@ app.use(
                 .map((value) => value.trim().replace(/\/+$/, ''))
                 .filter(Boolean);
             const productionOrigins = [
-                'https://arviora-solutions-zj52-guysz7kig-munna-kumar1.vercel.app',
+                'https://arviora-solutions-hamb.vercel.app/',
             ];
             const developmentOrigins = process.env.NODE_ENV === 'production' ? [] : [
                 'http://localhost:3000',
