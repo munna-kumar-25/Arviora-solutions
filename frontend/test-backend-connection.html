@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Backend Connection Test</title>
+</head>
+
+<body>
+    <h1>Testing Backend Connection</h1>
+    <div id="results"></div>
+
+    <script>
+        const resultsDiv = document.getElementById('results');
+
+        async function testBackendConnection() {
+            const apiUrl = 'http://localhost:5000/api';
+
+            resultsDiv.innerHTML += '<p>Testing connection to: ' + apiUrl + '</p>';
+
+            try {
+                // Test 1: Health Check
+                resultsDiv.innerHTML += '<p><strong>Test 1: Health Check</strong></p>';
+                const healthResponse = await fetch(apiUrl + '/health');
+                resultsDiv.innerHTML += '<p>Status: ' + healthResponse.status + ' ✅</p>';
+
+                // Test 2: Login
+                resultsDiv.innerHTML += '<p><strong>Test 2: Admin Login</strong></p>';
+                const loginResponse = await fetch(apiUrl + '/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: 'arviorasolution@gmail.com',
+                        password: 'Arviora@29'
+                    }),
+                });
+                const loginData = await loginResponse.json();
+                resultsDiv.innerHTML += '<p>Status: ' + loginResponse.status + '</p>';
+                resultsDiv.innerHTML += '<p>Response: ' + JSON.stringify(loginData).substring(0, 100) + '...</p>';
+
+                if (loginResponse.ok) {
+                    resultsDiv.innerHTML += '<p style="color: green;">✅ Backend is working correctly!</p>';
+                } else {
+                    resultsDiv.innerHTML += '<p style="color: red;">❌ Login failed: ' + loginData.message + '</p>';
+                }
+
+            } catch (error) {
+                resultsDiv.innerHTML += '<p style="color: red;">❌ Error: ' + error.message + '</p>';
+                resultsDiv.innerHTML += '<p style="color: red;">This usually means:</p>';
+                resultsDiv.innerHTML += '<ul style="color: red;">';
+                resultsDiv.innerHTML += '<li>Backend is not running on port 5000</li>';
+                resultsDiv.innerHTML += '<li>Network connectivity issue</li>';
+                resultsDiv.innerHTML += '<li>CORS blocking the request</li>';
+                resultsDiv.innerHTML += '</ul>';
+            }
+        }
+
+        testBackendConnection();
+    </script>
+</body>
+
+</html>

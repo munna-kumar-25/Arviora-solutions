@@ -1,0 +1,108 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-family: 'Poppins', 'Inter', sans-serif;
+}
+
+body {
+    font-family: 'Poppins', 'Inter', 'Segoe UI', 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    @apply bg-white text-black dark:bg-brand-dark dark:text-white transition-colors duration-300;
+}
+
+/* Glassmorphism and modern effects */
+.glass-effect {
+    @apply bg-gray-100 dark:bg-white/10 backdrop-blur-md border border-gray-300 dark:border-white/20 rounded-xl transition-colors duration-300;
+}
+
+.glass-effect-dark {
+    @apply bg-gray-50 dark:bg-black/20 backdrop-blur-xl border border-gray-200 dark:border-white/10 rounded-xl transition-colors duration-300;
+}
+
+.glow-effect {
+    @apply shadow-glow-brand;
+}
+
+.glow-effect-cyan {
+    @apply shadow-glow-cyan;
+}
+
+/* Gradient text */
+.gradient-text {
+    @apply bg-gradient-brand bg-clip-text text-transparent;
+}
+
+/* Component Styles */
+@layer components {
+    .btn-primary {
+        @apply px-8 py-3 bg-gradient-brand text-white font-semibold rounded-lg hover:shadow-glow-brand transition-all duration-300 transform hover:scale-105;
+    }
+
+    .btn-secondary {
+        @apply px-8 py-3 bg-gray-200 dark:bg-brand-surface border-2 border-brand-secondary text-brand-secondary font-semibold rounded-lg hover:bg-brand-secondary hover:text-white dark:hover:text-brand-dark transition-all duration-300;
+    }
+
+    .btn-ghost {
+        @apply px-8 py-3 border-2 border-brand-primary text-brand-primary bg-transparent hover:bg-brand-primary hover:text-white dark:hover:text-brand-dark transition-all duration-300 rounded-lg;
+    }
+
+    .section-title {
+        @apply text-5xl md:text-6xl font-bold mb-6 gradient-text;
+    }
+
+    .section-subtitle {
+        @apply text-xl text-black dark:text-brand-text-secondary max-w-3xl;
+    }
+
+    .card-glass {
+        @apply glass-effect p-6 hover:shadow-glow-brand transition-all duration-300;
+    }
+
+    .card-hover {
+        @apply transition-all duration-300 transform hover:scale-105 hover:shadow-glow-brand;
+    }
+
+    /* Glowing input focus */
+    .input-glow {
+        @apply bg-white dark:bg-brand-surface/50 border border-gray-300 dark:border-brand-text-secondary/20 text-black dark:text-white placeholder-gray-400 dark:placeholder-brand-text-secondary/50 rounded-lg px-4 py-3 focus:outline-none focus:border-brand-primary dark:focus:border-brand-cyan focus:shadow-glow-brand dark:focus:shadow-glow-cyan transition-all duration-300;
+    }
+
+    .label-floating {
+        @apply text-black dark:text-brand-text-secondary text-sm font-medium mb-2;
+    }
+}
+
+/* Smooth transitions */
+* {
+    transition: color 0.3s ease, background-color 0.3s ease;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0F172A;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4F46E5;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #06B6D4;
+}
