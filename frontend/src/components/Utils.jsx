@@ -23,7 +23,12 @@ export const Footer = () => {
         }
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:5000/api'}/newsletter/subscribe`, {
+            const apiUrl = process.env.REACT_APP_API_URL || (
+                process.env.NODE_ENV === 'production'
+                    ? 'https://arviora-solutions-2.onrender.com/api'
+                    : 'http://localhost:5000/api'
+            );
+            const response = await fetch(`${apiUrl}/newsletter/subscribe`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

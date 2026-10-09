@@ -5,7 +5,11 @@ import 'react-quill/dist/quill.snow.css';
 import { ThemeContext } from '../context/ThemeContext';
 import { getImageUrl } from '../services/api';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || (
+    process.env.NODE_ENV === 'production'
+        ? 'https://arviora-solutions-2.onrender.com/api'
+        : 'http://localhost:5000/api'
+);
 
 export const ContactForm = ({ onSubmit }) => {
     const [formData, setFormData] = useState({

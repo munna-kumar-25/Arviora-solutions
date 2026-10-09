@@ -1,8 +1,16 @@
 import axios from 'axios';
 
 // Configure base URL for API calls
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const API_BASE_URL = process.env.REACT_APP_API_URL || (
+    process.env.NODE_ENV === 'production'
+        ? 'https://arviora-solutions-2.onrender.com/api'
+        : 'http://localhost:5000/api'
+);
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || (
+    process.env.NODE_ENV === 'production'
+        ? 'https://arviora-solutions-2.onrender.com'
+        : 'http://localhost:5000'
+);
 
 // Utility function to get full image URL
 export const getImageUrl = (imagePath) => {

@@ -3,8 +3,16 @@ import { authAPI } from '../services/api';
 
 export const AuthContext = createContext();
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL || (
+    process.env.NODE_ENV === 'production'
+        ? 'https://arviora-solutions-2.onrender.com/api'
+        : 'http://localhost:5000/api'
+);
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || (
+    process.env.NODE_ENV === 'production'
+        ? 'https://arviora-solutions-2.onrender.com'
+        : 'http://localhost:5000'
+);
 const MAX_RETRIES = 3;
 const RETRY_DELAY = 1000; // 1 second
 

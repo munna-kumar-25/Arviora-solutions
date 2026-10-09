@@ -30,8 +30,14 @@ const app = express();
 app.use(
     cors({
         origin: function (origin, callback) {
-            // Allowed origins - both with and without trailing slash
-            const allowedOrigins = [
+            const configuredOrigins = (process.env.FRONTEND_URL || '')
+                .split(',')
+                .map((value) => value.trim().replace(/\/+$/, ''))
+                .filter(Boolean);
+            const productionOrigins = [
+                'https://arviora-solutions-zj52-guysz7kig-munna-kumar1.vercel.app',
+            ];
+            const developmentOrigins = process.env.NODE_ENV === 'production' ? [] : [
                 'http://localhost:3000',
                 'http://localhost:3001',
                 'http://localhost:3006',
@@ -42,18 +48,13 @@ app.use(
                 'http://127.0.0.1:3001',
                 'http://127.0.0.1:3006'
             ];
+            const allowedOrigins = new Set([...configuredOrigins, ...productionOrigins, ...developmentOrigins]);
 
-            // Log origins for debugging
-            if (origin) {
-                console.log(`Request from origin: ${origin}`);
-            }
-
-            // Allow if: no origin (for Node.js/curl requests), or in allowlist, or dev environment
-            if (!origin || allowedOrigins.includes(origin)) {
+            if (!origin || allowedOrigins.has(origin.replace(/\/+$/, ''))) {
                 callback(null, true);
             } else {
                 console.warn(`CORS blocked request from origin: ${origin}`);
-                callback(null, true); // Allow anyway in development
+                callback(null, false);
             }
         },
         credentials: true,
